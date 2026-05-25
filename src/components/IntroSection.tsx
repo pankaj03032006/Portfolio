@@ -24,27 +24,27 @@ const TypewriterClient = dynamic(
 
 const links = [
   {
-    href: "https://github.com/Sandeep-singh-99",
+    href: "https://github.com/pankaj03032006",
     icon: <Github size={20} />,
     label: "GitHub",
   },
   {
-    href: "https://www.linkedin.com/in/sandeep-singh-7a0219320",
+    href: "https://www.linkedin.com/in/pankaj-kumar-singh-a9a677249/",
     icon: <Linkedin size={20} />,
     label: "LinkedIn",
   },
   {
-    href: "mailto:sandeep.necoder@gmail.com",
+    href: "mailto:pankaj03032006@gmail.com",
     icon: <Mail size={20} />,
     label: "Email",
   },
   {
-    href: "https://x.com/SinghNecoder",
+    href: "https://x.com/pankajk31645072",
     icon: <Twitter size={20} />,
     label: "Twitter",
   },
   {
-    href: "https://www.instagram.com/sandeep.necoder",
+    href: "https://www.instagram.com/pankaj_kumar_singh",
     icon: <Instagram size={20} />,
     label: "Instagram",
   },

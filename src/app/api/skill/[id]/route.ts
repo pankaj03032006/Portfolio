@@ -6,34 +6,37 @@ import { revalidatePath } from "next/cache";
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     await ConnectDB();
 
-    const { id } = params;
+    // 🔥 IMPORTANT FIX (await params)
+    const { id } = await context.params;
 
     const skill = await Skill.findById(id);
 
     if (!skill) {
-      return NextResponse.json({ error: "Skill not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Skill not found" },
+        { status: 404 }
+      );
     }
 
-    const deleteImage = await DeleteImage(skill.skillImagePublicId);
-
-    if (deleteImage !== 'ok') {
-        return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });
+    if (skill.skillImagePublicId) {
+      await DeleteImage(skill.skillImagePublicId);
     }
 
     await Skill.findByIdAndDelete(id);
 
-    revalidatePath("/admin-panel/skill");
+    revalidatePath("/admin-panel/skills");
     revalidatePath("/");
 
-    return NextResponse.json({ message: "Skill deleted successfully" }, { status: 200 });
-
+    return NextResponse.json(
+      { message: "Skill deleted successfully" },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error("Error deleting skill:", error);
     return NextResponse.json(
       { error: "Failed to delete skill" },
       { status: 500 }
